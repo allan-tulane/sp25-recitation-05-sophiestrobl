@@ -25,6 +25,14 @@ Place all written answers from `recitation-05.md` here for easier grading.
 | 100000 | 116.435           | 131.134            | 10.238   |
 
 
+Selection sort (ssort) performed poorly, showing quadratic growth consistent with its O(n²) complexity. It was especially slow even for moderate sizes and omitted for larger inputs due to impractical runtimes.
+
+For random input, both variants of Quicksort performed much better, with qsort using a random pivot consistently faster and aligning with its expected average-case time of O(n log n). Fixed-pivot Quicksort also showed decent performance here since random input avoids worst-case behavior.
+
+For already sorted inputs, fixed-pivot Quicksort had significantly worse performance, especially at larger sizes, because it always selects the first element as the pivot—leading to worst-case O(n²) behavior. In contrast, randomized Quicksort remained fast, showing its advantage in adapting to different input structures.
+
+Overall, with random pivot, Quicksort is the most robust, while selection sort is inefficient, and fixed-pivot Quicksort doesnt work well with sorted input. The type of input list greatly impacts the performance, especially for algorithms sensitive to pivot choice like Quicksort.
+
 
 
 - **1c.**
