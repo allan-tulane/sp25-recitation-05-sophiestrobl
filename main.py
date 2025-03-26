@@ -52,31 +52,35 @@ def time_search(sort_fn, mylist):
     return (time.time() - start) * 1000
     ###
 
-def compare_sort(sizes=[10, 50, 100, 200, 500, 1000, 2000, 3000, 4000, 5000], already_sorted=False):
-    qsort_fixed_pivot = lambda L: qsort(L, first_element_pivot)
-    qsort_random_pivot = lambda L: qsort(L, random_pivot)
-
+def compare_sort(sizes=[100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000]):
+    ### sorting algorithms for comparison
     result = []
     for size in sizes:
+        # list in ascending order
         mylist = list(range(size))
-        if not already_sorted:
-            random.shuffle(mylist)
+        random.shuffle(mylist)
+        qsort_fixed_pivot = time_search(lambda a: qsort(a, lambda a: a[0]), mylist[:])
+        qsort_random_pivot = time_search(lambda lst: qsort(lst, lambda lst: random.choice(lst)), mylist[:])
+        tim_sort_t = time_search(sorted, mylist[:])
+
         result.append([
             len(mylist),
-            time_search(ssort, mylist) if size <= 2000 else float('nan'),
-            time_search(qsort_fixed_pivot, mylist),
-            time_search(qsort_random_pivot, mylist),
+            qsort_fixed_pivot,
+            qsort_random_pivot,
+            tim_sort_t,
+            # ssort_time_t,
         ])
     return result
 
 def print_results(results):
     """ change as needed for comparisons """
     print(tabulate.tabulate(results,
-                            headers=['n', 'qsort-fixed-pivot', 'qsort-random-pivot'],
+                            headers=['n', 'qsort-fixed-pivot', 'qsort-random-pivot', 'tim-sort'],
                             floatfmt=".3f",
                             tablefmt="github"))
 
 def test_print():
+
     print_results(compare_sort())
 
 random.seed()
